@@ -49,4 +49,22 @@ export class DataService {
       return false;
     }
   }
+
+  //deposit
+  deposit(acno: any, pswd: any, amt: any) {
+    var amount = parseInt(amt);
+    var database = this.database;
+
+    if (acno in database) {
+      if (pswd == database[acno].password) {
+        return database[acno].balance;
+      } else {
+        alert('incorrect password');
+        return false;
+      }
+    } else {
+      alert("user doesn't exist");
+      return false;
+    }
+  }
 }
