@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,7 @@ export class LoginComponent implements OnInit {
 
   acno = '';
   pswd = '';
-  constructor(private router: Router) {}
+  constructor(private router: Router, private ds: DataService) {}
 
   ngOnInit(): void {}
 
@@ -27,38 +28,33 @@ export class LoginComponent implements OnInit {
     this.pswd = event.target.value;
   }
 
-  // two way binding
-
   login() {
-    let acno = this.acno;
-    let pswd = this.pswd;
+    var acno = this.acno;
+    var pswd = this.pswd;
 
-    if (acno in this.database) {
-      if (pswd == this.database[acno].password) {
-        alert('login successfull');
-        this.router.navigateByUrl('dashboard');
-      } else {
-        alert('Invalid Password');
-      }
-    } else {
-      alert("User doesn't Exists");
+    const result = this.ds.login(acno, pswd);
+    if (result) {
+      alert('login successfull');
+      this.router.navigateByUrl('dashboard');
     }
   }
-
-  // template referencing variable
-
-  // login(a: any, p: any) {
-  //   let acno = a.value;
-  //   let pswd = p.value;
-
-  //   if (acno in this.database) {
-  //     if (pswd == this.database[acno].password) {
-  //       alert('Login successfull');
-  //     } else {
-  //       alert('incorrect password');
-  //     }
-  //   } else {
-  //     alert('User not found');
-  //   }
-  // }
 }
+
+// two way binding
+
+// template referencing variable
+
+// login(a: any, p: any) {
+//   let acno = a.value;
+//   let pswd = p.value;
+
+//   if (acno in this.database) {
+//     if (pswd == this.database[acno].password) {
+//       alert('Login successfull');
+//     } else {
+//       alert('incorrect password');
+//     }
+//   } else {
+//     alert('User not found');
+//   }
+// }
