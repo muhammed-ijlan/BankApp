@@ -68,4 +68,23 @@ export class DataService {
       return false;
     }
   }
+
+  //withdraw
+  withdraw(acno: any, pswd: any, amt: any) {
+    var amount = parseInt(amt);
+    if (acno in this.database) {
+      if (pswd == this.database[acno].password) {
+        if (this.database[acno]['balance'] > amount) {
+          this.database[acno]['balance'] -= amount;
+          return this.database[acno]['balance'];
+        } else {
+          alert(' insufficient balance');
+        }
+      } else {
+        alert('Incorrect Password');
+      }
+    } else {
+      alert('User does not exist!!');
+    }
+  }
 }
