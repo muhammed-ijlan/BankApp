@@ -24,11 +24,7 @@ export class DashboardComponent implements OnInit {
 
     var result = this.ds.deposit(acno, pswd, amount);
     if (result) {
-      alert(
-        `${amount} added successfully ... New balance is ${
-          result + this.amount
-        }`
-      );
+      alert(`${amount} added successfully ... New balance is ${result};`);
     }
   }
   withdraw() {

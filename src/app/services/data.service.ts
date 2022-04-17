@@ -57,6 +57,7 @@ export class DataService {
 
     if (acno in database) {
       if (pswd == database[acno].password) {
+        database[acno].balance += amount;
         return database[acno].balance;
       } else {
         alert('incorrect password');
