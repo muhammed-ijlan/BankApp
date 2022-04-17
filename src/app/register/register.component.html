@@ -26,6 +26,11 @@
                             placeholder="User Name" id="uname" required>
 
                     </div>
+                    <div *ngIf="(this.registerForm.get('uname')?.touched || this.registerForm.get('uname')?.dirty) && this.registerForm.get('uname')?.errors"
+                        style="color: red;">
+                        invalid Username
+                    </div>
+
                     <div class="input-group form-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-user"></i></span>
@@ -35,7 +40,7 @@
                         <!-- #acno -->
 
                         <input type="text" name="acno" formControlName="acno" class="form-control"
-                            placeholder="account number" id="acno" required>
+                            placeholder="account number" id="acno">
 
                     </div>
                     <div class="input-group form-group">
