@@ -4,10 +4,31 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class DataService {
+  currentUser: any;
+  currentAcno: any;
+
   database: any = {
-    1000: { acno: 1000, uname: 'Leo', password: 1000, balance: 5000 },
-    1001: { acno: 1001, uname: 'Ram', password: 1001, balance: 8000 },
-    1002: { acno: 1002, uname: 'Neer', password: 1002, balance: 6000 },
+    1000: {
+      acno: 1000,
+      uname: 'Leo',
+      password: 1000,
+      balance: 5000,
+      transaction: [],
+    },
+    1001: {
+      acno: 1001,
+      uname: 'Ram',
+      password: 1001,
+      balance: 8000,
+      transaction: [],
+    },
+    1002: {
+      acno: 1002,
+      uname: 'Neer',
+      password: 1002,
+      balance: 6000,
+      transaction: [],
+    },
   };
 
   constructor() {}
@@ -26,6 +47,7 @@ export class DataService {
         uname,
         password,
         balance: 0,
+        transaction: [],
       };
       console.log(database);
 
@@ -39,6 +61,8 @@ export class DataService {
 
     if (acno in database) {
       if (pswd == database[acno].password) {
+        this.currentUser = database[acno].uname;
+        this.currentAcno = acno;
         return true;
       } else {
         alert('incorrect Password');
@@ -58,6 +82,12 @@ export class DataService {
     if (acno in database) {
       if (pswd == database[acno].password) {
         database[acno].balance += amount;
+
+        database[acno]['transaction'].push({
+          type: 'CREDIT',
+          amount: amount,
+        });
+
         return database[acno].balance;
       } else {
         alert('incorrect password');
@@ -76,6 +106,12 @@ export class DataService {
       if (pswd == this.database[acno].password) {
         if (this.database[acno]['balance'] > amount) {
           this.database[acno]['balance'] -= amount;
+
+          this.database[acno]['transaction'].push({
+            type: 'DEBIT',
+            amount: amount,
+          });
+
           return this.database[acno]['balance'];
         } else {
           alert(' insufficient balance');
@@ -86,5 +122,10 @@ export class DataService {
     } else {
       alert('User does not exist!!');
     }
+  }
+
+  // transactions
+  transaction(acno: any) {
+    return this.database[acno].transaction;
   }
 }

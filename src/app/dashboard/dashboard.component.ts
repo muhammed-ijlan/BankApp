@@ -8,6 +8,8 @@ import { DataService } from '../services/data.service';
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
+  user: any;
+
   acno = '';
   pswd = '';
   amount = '';
@@ -17,9 +19,9 @@ export class DashboardComponent implements OnInit {
   amount1 = '';
 
   depositForm = this.fb.group({
-    acno: ['', [Validators.required, Validators.pattern('[0-9 ]*')]],
+    acno: ['', [Validators.required, Validators.pattern('[0-9]*')]],
     pswd: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9]*')]],
-    amount: ['', [Validators.required, Validators.pattern('[0-9.]*')]],
+    amount: ['', [Validators.required, Validators.pattern('[0-9]*')]],
   });
   withdrawForm = this.fb.group({
     acno1: ['', [Validators.required, Validators.pattern('[0-9 ]*')]],
@@ -27,7 +29,9 @@ export class DashboardComponent implements OnInit {
     amount1: ['', [Validators.required, Validators.pattern('[0-9]*')]],
   });
 
-  constructor(private ds: DataService, private fb: FormBuilder) {}
+  constructor(private ds: DataService, private fb: FormBuilder) {
+    this.user = this.ds.currentUser;
+  }
 
   ngOnInit(): void {}
 
