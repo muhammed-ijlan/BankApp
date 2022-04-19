@@ -15,9 +15,9 @@ export class RegisterComponent implements OnInit {
 
   //register form model
   registerForm = this.fb.group({
-    uname: ['', Validators.pattern('[a-zA-Z ]*')],
-    acno: [''],
-    pswd: [''],
+    uname: ['', [Validators.pattern('[a-zA-Z ]*')]],
+    acno: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9 ]*')]],
+    pswd: ['', [Validators.pattern('[a-zA-Z0-9 ]*')]],
   });
 
   constructor(
@@ -41,7 +41,7 @@ export class RegisterComponent implements OnInit {
         alert('account already exist.. Please logIn');
       }
     } else {
-      console.log('invalid form');
+      alert('invalid form');
     }
   }
 
