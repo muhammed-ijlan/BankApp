@@ -31,7 +31,33 @@ export class DataService {
     },
   };
 
-  constructor() {}
+  constructor() {
+    this.getDetails();
+  }
+
+  //to save data in localStorage
+  saveDetails() {
+    localStorage.setItem('database', JSON.stringify(this.database));
+    if (this.currentAcno) {
+      localStorage.setItem('currentAcno', JSON.stringify(this.currentAcno));
+    }
+    if (this.currentUser) {
+      localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
+    }
+  }
+
+  //to get data from local storage
+  getDetails() {
+    if (localStorage.getItem('database')) {
+      this.database = JSON.parse(localStorage.getItem('database') || '');
+    }
+    if (localStorage.getItem('currentAcno')) {
+      this.currentAcno = JSON.parse(localStorage.getItem('currentAcno') || '');
+    }
+    if (localStorage.getItem('currentUser')) {
+      this.currentUser = JSON.parse(localStorage.getItem('currentUser') || '');
+    }
+  }
 
   register(uname: any, acno: any, password: any) {
     let database = this.database;
@@ -50,6 +76,7 @@ export class DataService {
         transaction: [],
       };
       console.log(database);
+      this.saveDetails();
 
       return true;
     }
@@ -63,6 +90,7 @@ export class DataService {
       if (pswd == database[acno].password) {
         this.currentUser = database[acno].uname;
         this.currentAcno = acno;
+        this.saveDetails();
         return true;
       } else {
         alert('incorrect Password');
@@ -87,7 +115,7 @@ export class DataService {
           type: 'CREDIT',
           amount: amount,
         });
-
+        this.saveDetails();
         return database[acno].balance;
       } else {
         alert('incorrect password');
@@ -111,7 +139,7 @@ export class DataService {
             type: 'DEBIT',
             amount: amount,
           });
-
+          this.saveDetails();
           return this.database[acno]['balance'];
         } else {
           alert(' insufficient balance');

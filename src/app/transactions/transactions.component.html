@@ -17,17 +17,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Credit</td>
-                        <td>1000</td>
-                    </tr>
-                    <tr>
-                        <td>Debit</td>
-                        <td>1000</td>
-                    </tr>
-                    <tr>
-                        <td>Debit</td>
-                        <td>1000</td>
+                    <tr *ngFor="let item of transaction">
+                        <td>{{item.type}}</td>
+                        <td>{{item.amount}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -35,5 +27,5 @@
         <div class="col-3"></div>
     </div>
     <h3 style="text-align: center;"><a style="text-align: center; color: white; text-decoration:none"
-            routerLink="/">Home</a></h3>
+            routerLink="/dashboard">Home</a></h3>
 </div>

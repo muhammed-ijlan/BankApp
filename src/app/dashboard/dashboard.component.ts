@@ -18,6 +18,7 @@ export class DashboardComponent implements OnInit {
   pswd1 = '';
   amount1 = '';
 
+  // form validation
   depositForm = this.fb.group({
     acno: ['', [Validators.required, Validators.pattern('[0-9]*')]],
     pswd: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9]*')]],
