@@ -31,12 +31,15 @@ export class DashboardComponent implements OnInit {
     amount1: ['', [Validators.required, Validators.pattern('[0-9]*')]],
   });
 
+  loginDate:any;
+
   constructor(
     private ds: DataService,
     private fb: FormBuilder,
     private router: Router
   ) {
     this.user = this.ds.currentUser;
+    this.loginDate=new Date()
   }
 
   ngOnInit(): void {

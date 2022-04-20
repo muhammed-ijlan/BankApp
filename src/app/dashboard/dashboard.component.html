@@ -6,6 +6,7 @@
 </nav>
 
 <h1 class="text-white">Welcome {{user}}</h1>
+<h5 style="color: white;">Date: {{loginDate|date:'fullDate'|uppercase}}</h5>
 <a style="cursor: pointer; text-decoration: none; color: white;" routerLink="/transaction">Transaction History</a>
 <div class="container col-md-12 mt-0">
     <div class="d-flex justify-content-center h-100">
