@@ -10,6 +10,7 @@ import { DataService } from '../services/data.service';
 })
 export class DashboardComponent implements OnInit {
   user: any;
+  accno: any;
 
   acno = '';
   pswd = '';
@@ -31,7 +32,7 @@ export class DashboardComponent implements OnInit {
     amount1: ['', [Validators.required, Validators.pattern('[0-9]*')]],
   });
 
-  loginDate:any;
+  loginDate: any;
 
   constructor(
     private ds: DataService,
@@ -39,7 +40,7 @@ export class DashboardComponent implements OnInit {
     private router: Router
   ) {
     this.user = this.ds.currentUser;
-    this.loginDate=new Date()
+    this.loginDate = new Date();
   }
 
   ngOnInit(): void {
@@ -83,5 +84,16 @@ export class DashboardComponent implements OnInit {
     localStorage.removeItem('currentUser');
     localStorage.removeItem('currentAcno');
     this.router.navigateByUrl('');
+  }
+
+  //delete from parent
+  deleteFromParent() {
+    this.accno = JSON.parse(localStorage.getItem('currentAcno') || '');
+  }
+  onCancel() {
+    this.accno = '';
+  }
+  onDelete(event: any) {
+    alert('delete account ' + event);
   }
 }

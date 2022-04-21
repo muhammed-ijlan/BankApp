@@ -8,13 +8,14 @@
 <h1 class="text-white">Welcome {{user}}</h1>
 <h5 style="color: white;">Date: {{loginDate|date:'fullDate'|uppercase}}</h5>
 <a style="cursor: pointer; text-decoration: none; color: white;" routerLink="/transaction">Transaction History</a>
-<button style="float: right;" class="btn btn-warning">Delete</button>
-<app-delete-confirm></app-delete-confirm>
-<div class="container col-md-12 mt-0">
+<button (click)="deleteFromParent()" style="float: right; margin-right:10px;" class="btn btn-success">Delete</button>
+<app-delete-confirm (onDelete)="onDelete($event)" (onCancel)="onCancel()" [item]="accno"></app-delete-confirm>
+
+<div [ngClass]="accno?'modal':''" class="container col-md-12 mt-0">
     <div class="d-flex justify-content-center h-100">
         <div class="card">
             <div class="card-header">
-                <h3 class="text-center">Deposit</h3>
+                <h3 appHighlight class="text-center">Deposit</h3>
             </div>
             <div class="card-body">
                 <form [formGroup]="depositForm" (ngSubmit)="deposit()">
@@ -67,11 +68,11 @@
     </div>
 </div>
 
-<div class="container col-md-12 mt-0">
+<div [ngClass]="accno?'modal':''" class="container col-md-12 mt-0">
     <div class="d-flex justify-content-center h-100">
         <div class="card">
             <div class="card-header">
-                <h3 class="text-center">Withdraw</h3>
+                <h3 appHighlight class="text-center">Withdraw</h3>
 
             </div>
             <div class="card-body">
