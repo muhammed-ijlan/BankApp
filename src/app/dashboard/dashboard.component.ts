@@ -39,15 +39,15 @@ export class DashboardComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router
   ) {
-    this.user = this.ds.currentUser;
+    this.user = JSON.parse(localStorage.getItem('currentUser') || '');
     this.loginDate = new Date();
   }
 
   ngOnInit(): void {
-    if (!localStorage.getItem('currentAcno')) {
-      alert('Please Login!!');
-      this.router.navigateByUrl('');
-    }
+    // if (!localStorage.getItem('currentAcno')) {
+    //   alert('Please Login!!');
+    //   this.router.navigateByUrl('');
+    // }
   }
 
   deposit() {

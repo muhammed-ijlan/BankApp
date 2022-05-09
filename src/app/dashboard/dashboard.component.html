@@ -9,7 +9,7 @@
 <h5 style="color: white;">Date: {{loginDate|date:'fullDate'|uppercase}}</h5>
 <a style="cursor: pointer; text-decoration: none; color: white;" routerLink="/transaction">Transaction History</a>
 
-<app-animation-demo></app-animation-demo>
+<!-- <app-animation-demo></app-animation-demo> -->
 
 <button (click)="deleteFromParent()" style="float: right; margin-right:10px;" class="btn btn-success">Delete</button>
 <app-delete-confirm (onDelete)="onDelete($event)" (onCancel)="onCancel()" [item]="accno"></app-delete-confirm>

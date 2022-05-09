@@ -22,7 +22,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private db: DataService,
+    private ds: DataService,
     private fb: FormBuilder
   ) {}
 
@@ -32,14 +32,18 @@ export class RegisterComponent implements OnInit {
     var uname = this.registerForm.value.uname;
 
     if (this.registerForm.valid) {
-      const result = this.db.register(uname, acno, pswd);
-      if (result) {
-        alert('succesfully registered!!');
-        console.log(this.db.database);
-        this.router.navigateByUrl('');
-      } else {
-        alert('account already exist.. Please logIn');
-      }
+      this.ds.register(uname, acno, pswd).subscribe(
+        (result: any) => {
+          if (result) {
+            alert(result.message);
+            console.log(result);
+            this.router.navigateByUrl('');
+          }
+        },
+        (result) => {
+          alert(result.error.message);
+        }
+      );
     } else {
       alert('invalid form');
     }

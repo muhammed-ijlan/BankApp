@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -31,7 +32,7 @@ export class DataService {
     },
   };
 
-  constructor() {
+  constructor(private http: HttpClient) {
     this.getDetails();
   }
 
@@ -60,46 +61,22 @@ export class DataService {
   }
 
   register(uname: any, acno: any, password: any) {
-    let database = this.database;
-
-    if (acno in database) {
-      //already exist acno
-      return false;
-    } else {
-      //create new user and add into db
-
-      database[acno] = {
-        acno,
-        uname,
-        password,
-        balance: 0,
-        transaction: [],
-      };
-      console.log(database);
-      this.saveDetails();
-
-      return true;
-    }
+    const data = {
+      uname,
+      acno,
+      password,
+    };
+    return this.http.post('http://localhost:3000/register', data);
   }
 
   //login
   login(acno: any, pswd: any) {
-    let database = this.database;
-
-    if (acno in database) {
-      if (pswd == database[acno].password) {
-        this.currentUser = database[acno].uname;
-        this.currentAcno = acno;
-        this.saveDetails();
-        return true;
-      } else {
-        alert('incorrect Password');
-        return false;
-      }
-    } else {
-      alert("User doesn't Exists");
-      return false;
-    }
+    //req body
+    const data = {
+      acno,
+      pswd,
+    };
+    return this.http.post('http://localhost:3000/login', data);
   }
 
   //deposit
