@@ -56,10 +56,16 @@ export class DashboardComponent implements OnInit {
     let pswd = this.depositForm.value.pswd;
 
     if (this.depositForm.valid) {
-      let result = this.ds.deposit(acno, pswd, amount);
-      if (result) {
-        alert(`${amount} added successfully ... New balance is ${result};`);
-      }
+      this.ds.deposit(acno, pswd, amount).subscribe(
+        (result: any) => {
+          if (result) {
+            alert(result.message);
+          }
+        },
+        (result) => {
+          alert(result.error.message);
+        }
+      );
     } else {
       alert('Invalid Form');
     }
@@ -71,12 +77,18 @@ export class DashboardComponent implements OnInit {
     let amount = this.withdrawForm.value.amount1;
 
     if (this.withdrawForm.valid) {
-      let result = this.ds.withdraw(acno, pswd, amount);
-      if (result) {
-        alert(`${amount} is debited.. balance is ${result}`);
-      }
+      this.ds.withdraw(acno, pswd, amount).subscribe(
+        (result: any) => {
+          if (result) {
+            alert(result.message);
+          }
+        },
+        (result) => {
+          alert(result.error.message);
+        }
+      );
     } else {
-      alert('invalid form');
+      alert('Invalid Form');
     }
   }
   //logout

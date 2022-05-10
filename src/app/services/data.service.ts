@@ -1,5 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
+const options = {
+  headers: new HttpHeaders(),
+};
 
 @Injectable({
   providedIn: 'root',
@@ -81,56 +85,53 @@ export class DataService {
 
   //deposit
   deposit(acno: any, pswd: any, amt: any) {
-    var amount = parseInt(amt);
-    var database = this.database;
+    const data = {
+      acno,
+      pswd,
+      amt,
+    };
+    return this.http.post(
+      'http://localhost:3000/deposit',
+      data,
+      this.getOptions()
+    );
+  }
 
-    if (acno in database) {
-      if (pswd == database[acno].password) {
-        database[acno].balance += amount;
+  getOptions() {
+    const token = JSON.parse(localStorage.getItem('token') || '');
 
-        database[acno]['transaction'].push({
-          type: 'CREDIT',
-          amount: amount,
-        });
-        this.saveDetails();
-        return database[acno].balance;
-      } else {
-        alert('incorrect password');
-        return false;
-      }
-    } else {
-      alert("user doesn't exist");
-      return false;
+    let headers = new HttpHeaders();
+
+    if (token) {
+      headers = headers.append('x-access-token', token);
+      options.headers = headers;
     }
+    return options;
   }
 
   //withdraw
   withdraw(acno: any, pswd: any, amt: any) {
-    var amount = parseInt(amt);
-    if (acno in this.database) {
-      if (pswd == this.database[acno].password) {
-        if (this.database[acno]['balance'] > amount) {
-          this.database[acno]['balance'] -= amount;
-
-          this.database[acno]['transaction'].push({
-            type: 'DEBIT',
-            amount: amount,
-          });
-          this.saveDetails();
-          return this.database[acno]['balance'];
-        } else {
-          alert(' insufficient balance');
-        }
-      } else {
-        alert('Incorrect Password');
-      }
-    } else {
-      alert('User does not exist!!');
-    }
+    const data = {
+      acno,
+      pswd,
+      amt,
+    };
+    return this.http.post(
+      'http://localhost:3000/withdraw',
+      data,
+      this.getOptions()
+    );
   }
 
   // transactions
   transaction(acno: any) {
-    return this.database[acno].transaction;
+    const data = {
+      acno,
+    };
+    return this.http.post(
+      'http://localhost:3000/transaction',
+      data,
+      this.getOptions()
+    );
   }
 }
