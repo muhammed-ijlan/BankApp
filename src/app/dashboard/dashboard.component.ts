@@ -105,7 +105,18 @@ export class DashboardComponent implements OnInit {
   onCancel() {
     this.accno = '';
   }
+
   onDelete(event: any) {
-    alert('delete account ' + event);
+    this.ds.onDelete(event).subscribe(
+      (result: any) => {
+        if (result) {
+          alert(result.message);
+          this.router.navigateByUrl('');
+        }
+      },
+      (result) => {
+        alert(result.error.message);
+      }
+    );
   }
 }

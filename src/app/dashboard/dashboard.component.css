@@ -1,3 +1,31 @@
 .modal {
   opacity: 0;
 }
+.card {
+  border-radius: 1rem;
+}
+.card-deposit {
+  position: absolute;
+  left: 20rem;
+  top: 3rem;
+}
+.card-withdraw {
+  position: absolute;
+  left: 50rem;
+  top: 3rem;
+}
+.tran-history {
+  cursor: pointer;
+  text-decoration: none;
+  position: absolute;
+  left: 37rem;
+  top: 37rem;
+  height: 40px;
+  width: 20rem;
+  background-color: #ffc312;
+  color: black;
+  border: 1 !important;
+  border-radius: 1rem;
+  text-align: center;
+  padding-top: 6px;
+}

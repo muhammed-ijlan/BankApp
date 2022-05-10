@@ -5,10 +5,10 @@
 
 html,
 body {
-  background-image: url(./assets/bank.jpg),
+  background-image: url(./assets/bank-background.jpg),
     linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
   background-size: cover;
-  background-repeat: no-repeat;
+  background-repeat: repeat;
   background-blend-mode: multiply;
   height: 100%;
   font-family: "Numans", sans-serif;

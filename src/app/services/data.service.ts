@@ -134,4 +134,12 @@ export class DataService {
       this.getOptions()
     );
   }
+
+  // delete
+  onDelete(acno: any) {
+    return this.http.delete(
+      'http://localhost:3000/onDelete/' + acno,
+      this.getOptions()
+    );
+  }
 }
